@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nébula — Explora nuevas ideas</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #080b16;
+      --card: #111629;
+      --primary: #7c5cff;
+      --secondary: #00d4ff;
+      --text: #f5f7ff;
+      --muted: #9ca6c4;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* NAVBAR */
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 20px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      background: rgba(8, 11, 22, 0.75);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 100vh;
+      padding: 160px 7% 80px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 60px;
+
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: var(--primary);
+      filter: blur(180px);
+      opacity: 0.25;
+      top: -150px;
+      left: -100px;
+    }
+
+    .hero-text {
+      max-width: 650px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 15px;
+      border-radius: 30px;
+      background: rgba(124, 92, 255, 0.12);
+      border: 1px solid rgba(124, 92, 255, 0.3);
+      color: #b8a9ff;
+      margin-bottom: 25px;
+      font-size: 0.9rem;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 1;
+      margin-bottom: 25px;
+    }
+
+    h1 span {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.15rem;
+      max-width: 560px;
+      margin-bottom: 35px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      padding: 14px 25px;
+      border-radius: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .primary {
+      color: white;
+      background: linear-gradient(90deg, var(--primary), #5c8cff);
+      box-shadow: 0 10px 30px rgba(124, 92, 255, 0.25);
+    }
+
+    .secondary {
+      color: white;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    /* PLANET */
+
+    .visual {
+      width: 400px;
+      height: 400px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .planet {
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+
+      background:
+        radial-gradient(circle at 30% 30%, #b8a9ff, #684cff 35%, #21174d 70%);
+
+      box-shadow:
+        0 0 50px rgba(124,92,255,.5),
+        0 0 120px rgba(0,212,255,.15);
+
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .ring {
+      position: absolute;
+      width: 390px;
+      height: 100px;
+      border: 2px solid rgba(0,212,255,.5);
+      border-radius: 50%;
+      transform: rotate(-20deg);
+      animation: rotate 12s linear infinite;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    @keyframes rotate {
+      from {
+        transform: rotate(-20deg);
+      }
+
+      to {
+        transform: rotate(340deg);
+      }
+    }
+
+    /* SECTIONS */
+
+    section {
+      padding: 100px 7%;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .card {
+      padding: 35px;
+      border-radius: 20px;
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,.07);
+      transition: .3s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(124,92,255,.4);
+    }
+
+    .icon {
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: rgba(124,92,255,.15);
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: var(--muted);
+    }
+
+    /* CTA */
+
+    .cta {
+      max-width: 1000px;
+      margin: auto;
+      padding: 70px 30px;
+      text-align: center;
+      border-radius: 30px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(124,92,255,.18),
+          rgba(0,212,255,.08)
+        );
+
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .cta h2 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .cta p {
+      color: var(--muted);
+      margin-bottom: 30px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      padding: 35px 7%;
+      border-top: 1px solid rgba(255,255,255,.06);
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 800px) {
+      nav ul {
+        display: none;
+      }
+
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .hero p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .buttons {
+        justify-content: center;
+      }
+
+      .visual {
+        width: 300px;
+        height: 300px;
+      }
+
+      .planet {
+        width: 200px;
+        height: 200px;
+      }
+
+      .ring {
+        width: 300px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+
+  <nav>
+    <div class="logo">N<span>ÉBULA</span></div>
+
+    <ul>
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#funciones">Funciones</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- HERO -->
+
+  <main>
+
+    <section class="hero" id="inicio">
+
+      <div class="hero-text">
+
+        <div class="badge">
+          ✦ El futuro comienza aquí
+        </div>
+
+        <h1>
+          Explora nuevas
+          <span>posibilidades.</span>
+        </h1>
+
+        <p>
+          Una experiencia digital creada para quienes quieren
+          transformar sus ideas en algo extraordinario.
+        </p>
+
+        <div class="buttons">
+
+          <a href="#funciones" class="btn primary">
+            Comenzar ahora →
+          </a>
+
+          <a href="#contacto" class="btn secondary">
+            Saber más
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="visual">
+
+        <div class="planet"></div>
+
+        <div class="ring"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FUNCIONES -->
+
+    <section id="funciones">
+
+      <div class="section-title">
+
+        <h2>Todo empieza con una idea</h2>
+
+        <p>
+          Herramientas diseñadas para ayudarte a crear.
+        </p>
+
+      </div>
+
+
+      <div class="cards">
+
+        <article class="card">
+
+          <div class="icon">⚡</div>
+
+          <h3>Rápido</h3>
+
+          <p>
+            Diseñado para ofrecer una experiencia rápida,
+            fluida y agradable en cualquier dispositivo.
+          </p>
+
+        </article>
+
+
+        <article class="card">
+
+          <div class="icon">◈</div>
+
+          <h3>Moderno</h3>
+
+          <p>
+            Una interfaz limpia con animaciones sutiles
+            y un diseño pensado para destacar.
+          </p>
+
+        </article>
+
+
+        <article class="card">
+
+          <div class="icon">∞</div>
+
+          <h3>Sin límites</h3>
+
+          <p>
+            Personaliza tu experiencia y convierte tus
+            ideas en proyectos únicos.
+          </p>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- CTA -->
+
+    <section id="contacto">
+
+      <div class="cta">
+
+        <h2>¿Listo para comenzar?</h2>
+
+        <p>
+          Tu próxima gran idea podría comenzar con un simple clic.
+        </p>
+
+        <button class="btn primary" onclick="mostrarMensaje()">
+          Crear mi proyecto
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    © 2026 Nébula — Creado para imaginar.
+
+  </footer>
+
+
+  <!-- JAVASCRIPT -->
+
+  <script>
+
+    function mostrarMensaje() {
+
+      alert(
+        "🚀 ¡Excelente! Tu proyecto está a punto de comenzar."
+      );
+
+    }
+
+  </script>
+
+</body>
+</html>
